@@ -5,6 +5,7 @@
  * 
  * -Nombre->String Consultable y Modificable
  * -Size->Int Consultable 
+ * -ID->Int Consultable
  * 
  * ******Propiedades derivadas******
  * 
@@ -12,7 +13,7 @@
  * 
  * ******Propiedades compartidas*******
  * 
- * -ID-> int Consultable y Modificable
+ * -ContadorID-> int Consultable 
  * 
  * ********Restriciones*********
  * 
@@ -25,6 +26,10 @@
  * -public void setNombre(String nombre)
  * 
  * -public int getSize()
+ * 
+ * -public int getID()
+ * 
+ * -public int getContadorID()
  * 
  * 
  * *******Funcionalidades añadidas********
@@ -40,6 +45,8 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	
 	private String nombre;
 	private int size;
+	private int ID;
+	private static int contadorID=0;
 	
 	
 	//Constructores
@@ -47,6 +54,8 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	//Por defecto
 	public Barco(){
 		
+		contadorID++;
+		ID=contadorID;
 		nombre="Sin nombre";
 		size=1;
 	}
@@ -54,6 +63,8 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	//Con parametros
 	public Barco(String nombre, int size) {
 		
+		contadorID++;
+		ID=contadorID;
 		this.nombre=nombre;
 		this.size=size;
 	}
@@ -61,10 +72,17 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	//De copia
 	public Barco(Barco barco) {
 		
+		this.ID=barco.ID;
+		this.size=barco.size;
 		this.nombre=barco.nombre;
 	}
 	
 	//Gets y Sets
+	
+	public int getID() {
+		
+		return(ID);
+	}
 	
 	public String getNombre() {
 		
@@ -79,6 +97,11 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	public int getSize() {
 		
 		return(size);
+	}
+	
+	public int getContadorID() {
+		
+		return(contadorID);
 	}
 	
 	//Metodos sobreescritos
