@@ -40,7 +40,20 @@ public class TestBarco {
 		System.out.println("Equals en el barco 1 y en el clone de 2"+barcopordefecto.equals(clonebarcoparametros));
 		
 		//clone
-		System.out.println("");
+		clonebarcocopia = barcodecopia.clone();
+		System.out.println("Probando clone clonando barcocopia");
+		System.out.println("Valores del barco copia"+ barcodecopia.toString());
+		System.out.println("Valores del clone del barco de copia"+ clonebarcocopia.toString());
+		clonebarcoparametros = barcoparametros.clone();
+		System.out.println("Probando clone clonando barco dos");
+		System.out.println("Valores del barco 2"+ barcoparametros.toString());
+		System.out.println("Valores del barco clonado del 2"+ clonebarcoparametros.toString());
+		
+		//Compare to
+		System.out.println("Probando compare to con el barco 1 y el barco 2 "+ barcopordefecto.compareTo(barcoparametros));
+		System.out.println("Probando compare to con el barco 2 y su clone "+ barcoparametros.compareTo(clonebarcoparametros));
+		
+		
 		
 	}
 	
