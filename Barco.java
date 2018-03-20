@@ -27,10 +27,9 @@
  * 
  * -public int getSize()
  * 
+ * -public int getConatdorID()
+ * 
  * -public int getID()
- * 
- * -public int getContadorID()
- * 
  * 
  * *******Funcionalidades añadidas********
  * 
@@ -79,11 +78,6 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	
 	//Gets y Sets
 	
-	public int getID() {
-		
-		return(ID);
-	}
-	
 	public String getNombre() {
 		
 		return(nombre);
@@ -99,7 +93,12 @@ public class Barco implements Comparable<Barco>, Cloneable {
 		return(size);
 	}
 	
-	public int getContadorID() {
+	public int getID() {
+		
+		return(ID);
+	}
+	
+	public int getConatdorID() {
 		
 		return(contadorID);
 	}
@@ -109,9 +108,10 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	@Override
 	public int hashCode(){
 		
-		return(this.size*this.size);
+		return(this.size*this.ID);
 	}
 	
+	//Criterios de igualacion dos barcos son iguales cuando su size y su nombre
 	@Override 
 	public boolean equals(Object obj) {
 		
@@ -126,8 +126,8 @@ public class Barco implements Comparable<Barco>, Cloneable {
 			
 			Barco other=(Barco) obj;
 			
-			if(this.nombre== other.nombre &&
-				this.size==other.size) 
+			if(this.size==other.size &&
+				this.nombre==other.nombre) 
 				
 				ret=true;
 			
@@ -182,7 +182,7 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	@Override
 	public String toString() {
 		
-		return("Su barco tiene: como nombre"+this.getNombre()+"y tiene"+this.getSize()+"piezas");
+		return("Su barco tiene: como nombre"+this.getNombre()+"y tiene"+this.getSize()+"piezas y tiene el siguiente ID: "+ this.getID());
 	}
 
 }
