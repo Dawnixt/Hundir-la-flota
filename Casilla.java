@@ -11,7 +11,7 @@
  *	Propiedades compartidas: No hay 
  *	
  *	Restricciones:
- *		-idBarco >= 0 y idBarco <= 5
+ *		-idBarco >= 0 y idBarco <= 10
  *	
  *	Funcionalidades añadidas: Ninguna
  *	
@@ -67,7 +67,7 @@ public class Casilla implements Cloneable{
 	
 	public void setIdBarco(int idBarco) throws ExcepcionCasilla
 	{
-		if (idBarco >= 0 && idBarco <= 5)
+		if (idBarco >= 0 && idBarco <= 10)
 			this.idBarco = idBarco;
 		else
 			throw new ExcepcionCasilla ("El valor de idBarco debe estar entre 0 y 5.");

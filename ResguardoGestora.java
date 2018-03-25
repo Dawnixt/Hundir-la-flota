@@ -74,4 +74,110 @@ public class ResguardoGestora {
 		
 	}
 	
+	
+	/*
+	 * validarCasillaDescubierta
+	 * 
+	 * Interfaz
+	 * Comentario: Esta función comprueba si una casilla esta o no decubierta.
+	 * Cabecera: public boolean validarCasillaDescubierta(int fila, int columna, Casilla tablero[][])
+	 * 
+	 * Entarada:
+	 *  -fila 
+	 *  -columna
+	 *  -tablero[][]
+	 *  
+	 * Salida:
+	 * 	-ret (boolean)
+	 *  
+	 * Precondiciones: 
+	 * 	-fila >= 0 && fila <= 9
+	 * 	-columna >= 0 && columna <= 9
+	 * 
+	 * Postcondiciones:
+	 * 	-La función devuelve true si la casilla esta descubierta o false en caso contrario.
+	 * 
+	 */
+	
+	public boolean validarCasillaDescubierta(int fila, int columna, Casilla tablero[][])
+	{ 
+		boolean ret = false;
+		
+		System.out.println("En resguardo.");
+		
+		return ret;
+	}
+	
+	/*
+	 * descubrirCasilla
+	 * 
+	 * Interfaz
+	 * Comentario: Esta función descubre una casilla del tablero.
+	 * Cabecera: public void descubrirCasilla(int fila, int columna, Casilla tablero[][])
+	 * 
+	 * Entarada:
+	 *  -fila 
+	 *  -columna
+	 *  -tablero[][]
+	 *  
+	 * Precondiciones: 
+	 * 	-fila >= 0 && fila <= 9
+	 * 	-columna >= 0 && columna <= 9
+	 * 
+	 */
+	
+	public void descubrirCasilla(int fila, int columna, Casilla tablero[][])
+	{ 
+		System.out.println("En resguardo.");
+	}
+	
+	/*
+	 * mostrarTablero
+	 * 
+	 * Interfaz
+	 * Comentario: Esta función muestra un tablero por pantalla.
+	 * Cabecera: public void mostrarTablero (Casilla tablero[][])
+	 * 
+	 * Entrada: 
+	 * 	-tablero
+	 * 
+	 * Postcondiciones: Nada , solo se muestra un tablero por pantalla.
+	 */
+	
+	public void mostrarTablero (Casilla tablero[][])
+	{
+		System.out.println("En resguardo.");
+	}
+	
+	/*
+	 * mostrarBarcosHundidos
+	 * 
+	 * Interfaz
+	 * Comentario: Esta función muestra los nombres de los barcos hundugos.
+	 * Cabecera: public void mostrarBarcosHundidos (Casilla tablero[][])
+	 * 
+	 * Entrada:
+	 * 	-tablero[][]
+	 * 
+	 * Postcondiciones: Nada, solo se muestra nombres por pantalla.
+	 */
+	
+	/*
+	 * mostrarBarcosHundidos
+	 * 
+	 * Interfaz
+	 * Comentario: Esta función muestra el nombre de las naves hundidas por pantalla.
+	 * Cabecera: public void mostrarBarcosHundidos (Casilla tablero[][])
+	 * 
+	 * Entrada: 
+	 * 	-tablero[][]
+	 * 
+	 * Postcondiciones: Nada, solo muestra el nombre de las naves hundidas por pantalla.
+	 */
+	
+	public void mostrarBarcosHundidos (Casilla tablero[][])
+	{
+		System.out.println("En resguardo.");
+	}
+	
 }
