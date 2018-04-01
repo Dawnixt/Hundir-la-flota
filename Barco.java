@@ -27,9 +27,10 @@
  * 
  * -public int getSize()
  * 
- * -public int getConatdorID()
- * 
  * -public int getID()
+ * 
+ * -public int getContadorID()
+ * 
  * 
  * *******Funcionalidades añadidas********
  * 
@@ -78,6 +79,11 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	
 	//Gets y Sets
 	
+	public int getID() {
+		
+		return(ID);
+	}
+	
 	public String getNombre() {
 		
 		return(nombre);
@@ -93,12 +99,7 @@ public class Barco implements Comparable<Barco>, Cloneable {
 		return(size);
 	}
 	
-	public int getID() {
-		
-		return(ID);
-	}
-	
-	public int getConatdorID() {
+	public int getContadorID() {
 		
 		return(contadorID);
 	}
@@ -108,10 +109,9 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	@Override
 	public int hashCode(){
 		
-		return(this.size*this.ID);
+		return(this.size*this.size*this.ID);
 	}
 	
-	//Criterios de igualacion dos barcos son iguales cuando su size y su nombre
 	@Override 
 	public boolean equals(Object obj) {
 		
@@ -126,8 +126,9 @@ public class Barco implements Comparable<Barco>, Cloneable {
 			
 			Barco other=(Barco) obj;
 			
-			if(this.size==other.size &&
-				this.nombre==other.nombre) 
+			if(this.nombre== other.nombre &&
+				this.size==other.size &&
+				this.ID==other.ID) 
 				
 				ret=true;
 			
@@ -152,21 +153,21 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	}
 	
 	/*Condiciones de comparacion devolvera:
-	*	-1 si el size es mayor que el del otro barco
-	*	-0 si el size es igual al del otro barco
-	*	- -1 si el size es menor que el del otro barco
+	*	-1 si el ID es mayor que el del otro barco
+	*	-0 si el ID es igual al del otro barco
+	*	- -1 si el ID es menor que el del otro barco
 	*/
 	@Override
 	public int compareTo(Barco other){
 		
 		int devolucion=0;
 		
-		if(this!=other && this.getSize()> other.getSize()) {
+		if(this!=other && this.getID()> other.getID()) {
 			
 			devolucion=1;
 		}
 		
-		else if (this!=other && this.getSize()<other.getSize()) {
+		else if (this!=other && this.getID()<other.getID()) {
 			
 			devolucion=-1;
 		}
@@ -182,7 +183,7 @@ public class Barco implements Comparable<Barco>, Cloneable {
 	@Override
 	public String toString() {
 		
-		return("Su barco tiene: como nombre"+this.getNombre()+"y tiene"+this.getSize()+"piezas y tiene el siguiente ID: "+ this.getID());
+		return("Su barco tiene: como nombre"+this.getNombre()+", tiene"+this.getSize()+"piezas y su ID es: "+ this.getID());
 	}
 
 }
