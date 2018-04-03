@@ -66,11 +66,11 @@ package dawnixt.hundirlaflota.clases;
  * 
  * 		Para (i=numero barcos; mientras i>0; i--)
  * 
- * 			Leer y validar nombreBarco
+ * 			Leer y validar Barco
  * 
- * 			Crear barco
+ * 				
  * 
- *			Leer y validar coordenadas del barco			
+ * 			Leer y validar coordenadas
  * 			
  * 			Colocar barco
  * 
@@ -221,22 +221,18 @@ public class Hundirlaflota {
 				
 				numBarcos=leer.nextInt();
 				
-				Barco arrayBarco[]= new Barco[numBarcos];
+				Barco arrayTamaños[]= new int[10];
 				
 				for(int i=numBarcos; i>0; i--) {
 					
-					for(int j=0; j<numBarcos; j++) {
+						
 						//Leer y validar nombreBarco
+						
 						System.out.println("Que nombre quiere que tenga el barco?");
 						
 						nombreBarco=leer.nextLine();
-						
-						System.out.println("Cual es el tamaño que deberia de tener este barco?");
-						
-						size=leer.nextInt();
-						
-						arrayBarco[j]= new Barco(nombreBarco, size);
-					}
+				
+					
 					
 					System.out.println("A continuacion se les mostrara el tablero y con el debera de colocar sus barcos");
 					
@@ -255,7 +251,7 @@ public class Hundirlaflota {
 					
 					do {
 						
-						System.out.println("Digame la columna donde quiere inicial donde quiere colocar el barco");
+						System.out.println("Digame la columna inicial donde quiere colocar el barco");
 						
 						columna_inicial=leer.next().charAt(0);
 						
@@ -269,7 +265,7 @@ public class Hundirlaflota {
 					
 					}
 					
-					//hacer un do while para filas y columnas iguales
+					//verificar espacio libre
 					while(columna_inicial<'A' && columna_inicial>'J');
 					
 					do {
@@ -295,7 +291,7 @@ public class Hundirlaflota {
 						
 						columna_final=Character.toUpperCase(columna_final);
 						
-						if(columna_inicial<'A' && columna_inicial>'J') {
+						if(columna_final<'A' && columna_final>'J') {
 							
 							gestora.mostrarTablero(tablero1);
 							
@@ -303,7 +299,9 @@ public class Hundirlaflota {
 					
 					}
 					
-					while (columna_inicial<'A' && columna_inicial>'J');
+					while (columna_final<'A' && columna_final>'J');
+					
+					gestora.ve
 					
 					//Colocar Barcos
 					
