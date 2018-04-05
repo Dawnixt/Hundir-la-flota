@@ -66,11 +66,11 @@ package dawnixt.hundirlaflota.clases;
  * 
  * 		Para (i=numero barcos; mientras i>0; i--)
  * 
- * 			Leer y validar Barco
+ * 			Leer y validar nombreBarco
  * 
- * 				
+ * 			Crear barco
  * 
- * 			Leer y validar coordenadas
+ *			Leer y validar coordenadas del barco			
  * 			
  * 			Colocar barco
  * 
@@ -166,6 +166,8 @@ public class Hundirlaflota {
 	}
 	
 	public static void normas() {
+		GestoraTablero gestora = new GestoraTablero();
+		Casilla tablero1[][] = new Casilla[10][10];
 		
 		System.out.println("**A continuacion se mostraran las normas del juego**");
 		System.out.println("1º Los jugadores tendrán el mismo número de barcos.\r\n" + 
@@ -174,22 +176,28 @@ public class Hundirlaflota {
 				"4º No podrá haber más de 10 barcos ni menos de 1\r\n"+
 				"5ºCada jugador dispone de un turno de disparo que se irá alternando\r\n"+
 				"Para hacerlo dirá las coordenadas. Por ejemplo “B3”, significa que su disparo corresponde a la casilla que se encuentra en esa coordenada. ");
+		System.out.println("El tablero de juego sera el siguiente:");
+		
+		gestora.mostrarTablero(tablero1);
+		
+		System.out.println("Las columnas seran letras desde la A hasta la J y las filas seran desde el 1 al 10");
 	}
 
 	public static void main(String[] args) {
 		
 		Scanner leer= new Scanner(System.in);
-		int numBarcos;
-		int fila_inicial, fila_final;
-		char columna_inicial ,columna_final ;
+		int numBarcos, barcosmuertos = 0;
+		int fila_inicial, fila_final, fila_ataque, numcolumna = 0,numid = 0;
+		char columna_inicial ,columna_final, columna_ataque=0 ;
 		String nombreBarco;
 		String nombreJugador1;
 		String nombreJugador2;
-		int size;
+		int size = 0, cantidad_espacios, espacios_acertados;
 		int opcion;
 		Casilla tablero1[][] = new Casilla[10][10];
 		Casilla tablero2[][] = new Casilla[10][10];
 		GestoraTablero gestora = new GestoraTablero();
+		boolean finalturno, verificarBarco;
 		
 		//Mostrar menus y leer y validar opcion 
 		do {
@@ -217,91 +225,115 @@ public class Hundirlaflota {
 				
 				//Leer y validar numero de barcos
 				
+				do {
+					
 				System.out.println("Con cuantos barcos quieren jugar? (recuerden que no se puede tener mas de 10 barcos)");
 				
 				numBarcos=leer.nextInt();
+			
+				}	
 				
-				Barco arrayTamaños[]= new int[10];
+				while(numBarcos<1 || numBarcos>10);
+				
+				Barco [] arrayBarco= new Barco[numBarcos];
 				
 				for(int i=numBarcos; i>0; i--) {
 					
-						
+					for(int j=0; j<numBarcos; j++) {	
 						//Leer y validar nombreBarco
 						
 						System.out.println("Que nombre quiere que tenga el barco?");
 						
-						nombreBarco=leer.nextLine();
-				
+						nombreBarco=leer.nextLine();	
 					
-					
-					System.out.println("A continuacion se les mostrara el tablero y con el debera de colocar sus barcos");
-					
-					do {
-					
-					gestora.mostrarTablero(tablero1);
-					
-					//Leer y validar coordenadas del barco	
-					
-					System.out.println("Digame la fila inicial donde colocara el barco");
-					
-					fila_inicial=leer.nextInt();
-					}
-					
-					while(fila_inicial>10 && fila_inicial<0);
-					
-					do {
-						
-						System.out.println("Digame la columna inicial donde quiere colocar el barco");
-						
-						columna_inicial=leer.next().charAt(0);
-						
-						columna_inicial=Character.toUpperCase(columna_inicial);
-						
-						if(columna_inicial<'A' && columna_inicial>'J') {
+						if(numBarcos<5) {
 							
-							gestora.mostrarTablero(tablero1);
+							size=j+1;
+						}
+						else {
 							
+							if(numBarcos>5)
+							
+								size=5;
 						}
 					
+					
+						arrayBarco[j]= new Barco(nombreBarco, size);
+					
 					}
 					
-					//verificar espacio libre
-					while(columna_inicial<'A' && columna_inicial>'J');
-					
-					do {
-						System.out.println("Digame la fila final del barco");
-						
-						fila_final=leer.nextInt();
-						
-						if(fila_final<0 && fila_final>10) {
-							
-							gestora.mostrarTablero(tablero1);
-							
-						}
-						
-					}
-					
-					while(fila_final<0 && fila_final>10);
+					System.out.println("A continuacion se les mostrara el tablero del jugador 1 y con el debera de colocar sus barcos");
 					
 					do {
 					
-						System.out.println("Digame la columna final del barco");
+						gestora.mostrarTablero(tablero1);
 						
-						columna_final=leer.next().charAt(0);
+						do {
 						
-						columna_final=Character.toUpperCase(columna_final);
+						//Leer y validar coordenadas del barco	
 						
-						if(columna_final<'A' && columna_final>'J') {
+						System.out.println("Digame la fila inicial donde colocara el barco");
+						
+						fila_inicial=leer.nextInt();
+						}
+						
+						while(fila_inicial>10 && fila_inicial<0);
+						
+						do {
 							
-							gestora.mostrarTablero(tablero1);
+							System.out.println("Digame la columna inicial donde quiere colocar el barco");
+							
+							columna_inicial=leer.next().charAt(0);
+							
+							columna_inicial=Character.toUpperCase(columna_inicial);
+							
+							if(columna_inicial<'A' && columna_inicial>'J') {
+								
+								gestora.mostrarTablero(tablero1);
+								
+							}
+						
+						}
+						
+						while(columna_inicial<'A' && columna_inicial>'J');
+						
+						do {
+							System.out.println("Digame la fila final del barco");
+							
+							fila_final=leer.nextInt();
+							
+							if(fila_final<0 && fila_final>10) {
+								
+								gestora.mostrarTablero(tablero1);
+								
+							}
 							
 						}
+						
+						while(fila_final<0 && fila_final>10);
+						
+						do {
+						
+							System.out.println("Digame la columna final del barco");
+							
+							columna_final=leer.next().charAt(0);
+							
+							columna_final=Character.toUpperCase(columna_final);
+							
+							if(columna_final<'A' && columna_final>'J') {
+								
+								gestora.mostrarTablero(tablero1);
+								
+							}
+						
+						}
+						
+						while (columna_final<'A' && columna_final>'J');
+						
+						verificarBarco=gestora.verificarEspacioLibre(fila_inicial, columna_inicial, fila_final, columna_final, tablero1);
 					
 					}
-					
-					while (columna_final<'A' && columna_final>'J');
-					
-					gestora.ve
+					while(verificarBarco=false);
 					
 					//Colocar Barcos
 					
@@ -311,7 +343,392 @@ public class Hundirlaflota {
 						
 					}
 					
+					System.out.println("El tablero del jugador 1 quedaria asi");
+					
+					for(int a=0; a<11; a++) {
+						
+						for(int j=0;j<11;j++) {
+							
+							tablero1[i][j].setDescubierta(true);
+							
+						}
+					}
+					gestora.mostrarTablero(tablero1);
+						
+					
+					
+					System.out.println("A continuacion se les mostrara el tablero del jugador 2 y con el debera de colocar sus barcos");
+					do {
+						
+						gestora.mostrarTablero(tablero2);
+						
+						do {
+						
+						//Leer y validar coordenadas del barco	
+						
+						System.out.println("Digame la fila inicial donde colocara el barco");
+						
+						fila_inicial=leer.nextInt();
+						}
+						
+						while(fila_inicial>10 && fila_inicial<0);
+						
+						do {
+							
+							System.out.println("Digame la columna inicial donde quiere colocar el barco");
+							
+							columna_inicial=leer.next().charAt(0);
+							
+							columna_inicial=Character.toUpperCase(columna_inicial);
+							
+							if(columna_inicial<'A' && columna_inicial>'J') {
+								
+								gestora.mostrarTablero(tablero2);
+								
+							}
+						
+						}
+						
+						while(columna_inicial<'A' && columna_inicial>'J');
+						
+						do {
+							System.out.println("Digame la fila final del barco");
+							
+							fila_final=leer.nextInt();
+							
+							if(fila_final<0 && fila_final>10) {
+								
+								gestora.mostrarTablero(tablero2);
+								
+							}
+							
+						}
+						
+						while(fila_final<0 && fila_final>10);
+						
+						do {
+						
+							System.out.println("Digame la columna final del barco");
+							
+							columna_final=leer.next().charAt(0);
+							
+							columna_final=Character.toUpperCase(columna_final);
+							
+							if(columna_final<'A' && columna_final>'J') {
+								
+								gestora.mostrarTablero(tablero2);
+								
+							}
+						
+						}
+						
+						while (columna_final<'A' && columna_final>'J');
+						
+						verificarBarco=gestora.verificarEspacioLibre(fila_inicial, columna_inicial, fila_final, columna_final, tablero2);
+					
+					}
+					while(verificarBarco=false);
+					
+					//Colocar Barcos
+					
+					for(int z=0; z<numBarcos; z++) {
+						
+						gestora.colocarBarco(fila_inicial, columna_inicial, fila_final, columna_final, arrayBarco[z], tablero2);
+						
+					}
+		
 				}
+				
+				do {
+					
+					//Leer y validar bombardeo
+					
+					for(int a=0; a<numBarcos; a++) {
+						
+						for(int j=0;j<numBarcos;j++) {
+							
+							tablero1[a][j].setDescubierta(false);
+							
+						}
+					}
+					
+					for(int a=0; a<numBarcos; a++) {
+						
+						for(int j=0;j<numBarcos;j++) {
+							
+							tablero2[a][j].setDescubierta(false);
+							
+						}
+					}
+					
+					do {
+						gestora.mostrarTablero(tablero1);
+					
+						System.out.println("En que fila quieres bombardear?");
+						
+						fila_ataque=leer.nextInt();
+					}
+					while(fila_ataque<0 && fila_ataque>10);
+						
+					do {
+						System.out.println("En que columna quiere atacar");
+						
+						columna_ataque=leer.next().charAt(0);
+					}
+					while(columna_ataque<'A' && columna_ataque>'J');
+				
+					
+					if(columna_ataque=='A') {
+						numcolumna=1;
+						
+					}
+					else {
+						
+						if(columna_ataque=='B') {
+							
+							numcolumna=2;
+						}
+						
+						else {
+							
+							if(columna_ataque=='C') {
+								
+								numcolumna=3;
+							}
+							
+							else {
+								
+								if(columna_ataque=='D') {
+									numcolumna=4;
+								}
+								
+								else {
+									
+									if(columna_ataque=='E') {
+										numcolumna=5;
+									}
+									
+									else {
+										
+										if(columna_ataque=='F') {
+											numcolumna=6;
+										}
+										
+										else {
+											
+											if(columna_ataque=='G') {
+												numcolumna=7;
+											}
+											
+											else {
+												
+												if(columna_ataque=='H') {
+													numcolumna=8;
+												}
+												
+												else {
+													
+													if(columna_ataque=='I') {
+														numcolumna=9;
+													}
+													
+													else {
+														numcolumna=10;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				
+				gestora.descubrirCasilla(fila_ataque, columna_ataque, tablero2);
+				
+				gestora.mostrarTablero(tablero2);
+				
+				numid=tablero2[fila_ataque][numcolumna].getIdBarco();//preguntar a Yeray como iban las id de los barcos
+				
+				gestora.mostrarBarcosHundidos(tablero2, arrayBarco);
+				
+				for(int b = numBarcos; b > 0; b--)
+				{
+					cantidad_espacios = 0;
+					espacios_acertados = 0;
+					
+					for(int i = 0; i < tablero2.length; i++)
+					{
+						for(int j = 0; j < tablero2[0].length; j++)
+						{
+							if (tablero2[i][j].getIdBarco() == b)
+								cantidad_espacios++;
+							
+							if (tablero2[i][j].getDescubierta() == true && tablero2[i][j].getIdBarco() == b)
+								espacios_acertados++;
+						}
+					}
+					
+					if (cantidad_espacios == espacios_acertados) {
+						
+						barcosmuertos++;
+					}
+						
+				}
+				
+				if(barcosmuertos==numBarcos) {
+					
+					finalturno=true;
+				}
+				
+				if(finalturno=false) {
+					
+				
+						
+						//Leer y validar bombardeo
+						
+						for(int a=0; a<numBarcos; a++) {
+							
+							for(int j=0;j<numBarcos;j++) {
+								
+								tablero1[a][j].setDescubierta(false);
+								
+							}
+						}
+						
+						for(int a=0; a<numBarcos; a++) {
+							
+							for(int j=0;j<numBarcos;j++) {
+								
+								tablero2[a][j].setDescubierta(false);
+								
+							}
+						}
+						
+						do {
+							gestora.mostrarTablero(tablero1);
+						
+							System.out.println("En que fila quieres bombardear?");
+							
+							fila_ataque=leer.nextInt();
+						}
+						while(fila_ataque<0 && fila_ataque>10);
+							
+						do {
+							System.out.println("En que columna quiere atacar");
+							
+							columna_ataque=leer.next().charAt(0);
+						}
+						while(columna_ataque<'A' || columna_ataque>'J');
+					
+					
+						if(columna_ataque=='A') {
+							numcolumna=1;
+							
+						}
+						else {
+							
+							if(columna_ataque=='B') {
+								
+								numcolumna=2;
+							}
+							
+							else {
+								
+								if(columna_ataque=='C') {
+									
+									numcolumna=3;
+								}
+								
+								else {
+									
+									if(columna_ataque=='D') {
+										numcolumna=4;
+									}
+									
+									else {
+										
+										if(columna_ataque=='E') {
+											numcolumna=5;
+										}
+										
+										else {
+											
+											if(columna_ataque=='F') {
+												numcolumna=6;
+											}
+											
+											else {
+												
+												if(columna_ataque=='G') {
+													numcolumna=7;
+												}
+												
+												else {
+													
+													if(columna_ataque=='H') {
+														numcolumna=8;
+													}
+													
+													else {
+														
+														if(columna_ataque=='I') {
+															numcolumna=9;
+														}
+														
+														else {
+															numcolumna=10;
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					
+					gestora.descubrirCasilla(fila_ataque, columna_ataque, tablero2);
+					
+					gestora.mostrarTablero(tablero2);
+					
+					numid=tablero1[fila_ataque][numcolumna].getIdBarco();//preguntar a Yeray como iban las id de los barcos
+					
+					for(int b = numBarcos; b > 0; b--)
+					{
+						cantidad_espacios = 0;
+						espacios_acertados = 0;
+						
+						for(int i = 0; i < tablero2.length; i++)
+						{
+							for(int j = 0; j < tablero2[0].length; j++)
+							{
+								if (tablero2[i][j].getIdBarco() == b)
+									cantidad_espacios++;
+								
+								if (tablero2[i][j].getDescubierta() == true && tablero2[i][j].getIdBarco() == b)
+									espacios_acertados++;
+							}
+						}
+						
+						if (cantidad_espacios == espacios_acertados) {
+							
+							barcosmuertos++;
+						}
+							
+					}
+					
+					if(barcosmuertos==numBarcos) {
+						
+						finalturno=true;
+					}
+					
+					
+					}
+				}
+				while(finalturno=false);
+				
+				break;
 				
 			case 2:
 				
